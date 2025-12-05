@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Update Schedule Entry{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-3">Update Schedule Entry</h1>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            {% include 'partials/_form_fields.html' with form=form %}
+
+            <div class="d-flex gap-2">
+                <button class="btn btn-success" type="submit">Update</button>
+                <a class="btn btn-outline-secondary" href="{% url 'schedule_list' %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

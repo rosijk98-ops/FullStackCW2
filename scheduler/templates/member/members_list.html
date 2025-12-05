@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Members{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3">Members</h1>
+    <a href="{% url 'create_member' %}" class="btn btn-success">+ Add Member</a>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th style="width:160px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for member in members %}
+              <tr>
+                <td>{{ member.user.get_full_name }}</td>
+                <td>{{ member.user.email }}</td>
+                <td>{{ member.user.phone_number }}</td>
+                <td>
+                  <a href="{% url 'update_member' member.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                  <a href="{% url 'delete_member' member.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+              </tr>
+            {% empty %}
+              <tr><td colspan="4" class="text-center text-muted">No members found.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

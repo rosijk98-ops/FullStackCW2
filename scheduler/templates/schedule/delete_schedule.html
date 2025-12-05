@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Delete Schedule Entry{% endblock %}
+
+{% block content %}
+  <h1 class="h4 mb-3">Delete Schedule Entry</h1>
+
+  <div class="alert alert-warning">
+    Are you sure you want to delete the schedule entry for:
+    <strong>{{ schedule.fitness_class.name }}</strong>?
+    <br>This action cannot be undone.
+  </div>
+
+  <form method="post" class="d-inline">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
+  </form>
+
+  <a href="{% url 'schedule_list' %}" class="btn btn-outline-secondary ms-2">
+    Cancel
+  </a>
+{% endblock %}

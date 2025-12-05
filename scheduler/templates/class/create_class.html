@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Fitness Class{% endblock %}
+
+{% block content %}
+<h2>Add Fitness Class</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+</form>
+{% endblock %}

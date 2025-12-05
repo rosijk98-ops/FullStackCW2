@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Bookings{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3">Bookings</h1>
+  <a href="{% url 'create_booking' %}" class="btn btn-success">+ Create Booking</a>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Member</th>
+            <th>Trainer</th>
+            <th>Class</th>
+            <th>Date & Time</th>
+            <th>Status</th>
+            <th style="width:160px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for b in bookings %}
+            <tr>
+              <td>{{ b.member.name }}</td>
+              <td>{{ b.trainer.name }}</td>
+              <td>{{ b.fitness_class.name }}</td>
+              <td>{{ b.schedule.start_time|date:"Y-m-d H:i" }}</td>
+              <td><span class="badge bg-secondary">{{ b.get_status_display }}</span></td>
+              <td>
+                <a href="{% url 'update_booking' b.id %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                <a href="{% url 'delete_booking' b.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="6" class="text-center text-muted">No bookings found.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

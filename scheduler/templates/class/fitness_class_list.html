@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Fitness Classes{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3">Fitness Classes</h1>
+
+    {% if request.user.is_staff %}
+      <a href="{% url 'create_class' %}" class="btn btn-success">+ Add Class</a>
+    {% endif %}
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Trainer</th>
+              <th>Duration</th>
+
+              {% if request.user.is_staff %}
+                <th style="width:160px;">Actions</th>
+              {% endif %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for fitness_class in fitness_classes %}
+              <tr>
+                <td>{{ fitness_class.name }}</td>
+                <td>
+                  {% if fitness_class.trainer %}
+                      {{ fitness_class.trainer.user.get_full_name|default:fitness_class.trainer.user.username }}
+                  {% else %}
+                      <span class="text-muted">No trainer</span>
+                  {% endif %}
+                </td>
+
+                <td>{{ fitness_class.duration }} min</td>
+
+                {% if request.user.is_staff %}
+                <td>
+                  <a href="{% url 'update_class' fitness_class.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                  <a href="{% url 'delete_class' fitness_class.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+                {% endif %}
+              </tr>
+            {% empty %}
+              <tr><td colspan="5" class="text-center text-muted">No classes found.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

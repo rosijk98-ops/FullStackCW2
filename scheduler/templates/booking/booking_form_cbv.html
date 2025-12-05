@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{% if object %}Edit Booking{% else %}Add Booking{% endif %}{% endblock %}
+{% block content %}
+  <h1 class="h3 mb-3">{% if object %}Edit Booking{% else %}Add New Booking{% endif %}</h1>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {% include 'partials/_form_fields.html' with form=form %}
+        <div class="d-flex gap-2">
+          <button class="btn btn-success" type="submit">{% if object %}Update{% else %}Save{% endif %}</button>
+          <a class="btn btn-outline-secondary" href="{% url 'bookings_list_cbv' %}">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

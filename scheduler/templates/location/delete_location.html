@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Delete Location{% endblock %}
+
+{% block content %}
+  <h1 class="h4 mb-3">Delete Location</h1>
+
+  <div class="alert alert-warning">
+    Are you sure you want to delete the location:
+    <strong>{{ location.name }}</strong>?
+    <br>This action cannot be undone.
+  </div>
+
+  <form method="post" class="d-inline">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
+  </form>
+
+  <a href="{% url 'locations_list' %}" class="btn btn-outline-secondary ms-2">
+    Cancel
+  </a>
+{% endblock %}

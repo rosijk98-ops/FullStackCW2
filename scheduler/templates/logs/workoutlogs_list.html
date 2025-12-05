@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Workout Logs{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-3">Workout Logs</h1>
+
+<a href="{% url 'create_workoutlog' %}" class="btn btn-success mb-3">Add New Log</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Member</th>
+      <th>Date</th>
+      <th>Notes</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for log in logs %}
+    <tr>
+      <td>{{ log.member.user.get_full_name }}</td>
+      <td>{{ log.date|date:"d M Y" }}</td>
+      <td>{{ log.notes }}</td>
+      <td>
+        <a href="{% url 'update_workoutlog' log.id %}" class="btn btn-primary btn-sm">Edit</a>
+        <a href="{% url 'delete_workoutlog' log.id %}" class="btn btn-danger btn-sm">Delete</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="4">No logs found.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
